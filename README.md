@@ -1,6 +1,9 @@
 # Virtual-Reality-Website-with-3D-Objects
 On progress VR website demo with 3D objects
+Run index.html to start.
 
 A virtual reality demo, allowing users to interact with 3D objects.
 
-Using A-frame.
+Using A-frame. 
+
+3D object source: https://free3d.com/3d-model/e-45-aircraft-71823.html
