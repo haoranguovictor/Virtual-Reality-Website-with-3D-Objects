@@ -1,10 +1,10 @@
 <html>
      
   <head>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+      <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
       <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="js/aframe-extras.js"></script>
-    <script src="js/aframe-text-geometry-component.min.js"></script>
+      <script src="js/aframe-extras.js"></script>
+      <script src="js/aframe-text-geometry-component.min.js"></script>
       
     <script>
     
@@ -17,47 +17,45 @@
    
     
         
-AFRAME.registerComponent('animation-control', {
-  schema: {default: ''},
-  init() {
-     
-    const bot = document.querySelector('#bot'); 
-    var runBut = document.querySelector('#attack');
-    var walkBut = document.querySelector('#roll');
-    var idleBut = document.querySelector('#jumping');  
-    var scene = document.querySelector('a-scene');
-    
-   
-  
-  this.el.addEventListener('click', () => {
-      
-        bot.setAttribute("animation-mixer",this.data); 
-         scene.removeEventListener('animation-loop', jumpTrans);
-         prevData = this.data;
-   
-     
-    }); 
-      
-      
-      
-  }
-});
-</script>  
+    AFRAME.registerComponent('animation-control', {
+      schema: {default: ''},
+      init() {
+
+        const bot = document.querySelector('#bot'); 
+        var runBut = document.querySelector('#attack');
+        var walkBut = document.querySelector('#roll');
+        var idleBut = document.querySelector('#jumping');  
+        var scene = document.querySelector('a-scene');
+
+
+
+      this.el.addEventListener('mouseenter', () => {
+
+            bot.setAttribute("animation-mixer",this.data); 
+             scene.removeEventListener('animation-loop', jumpTrans);
+             prevData = this.data;
+
+
+        }); 
+
+
+
+      }
+    });
+    </script>  
          
   </head>
   <body>
     <a-scene>
-     <a-assets>
-    <img id="sky" src="tex/space.jpg">
-    <img id="grid" src="tex/gridPattern.png" >
-    <img id="pink" src="tex/pink.jpg"> 
-    <img id="chrome" src="tex/chrome.jpg"> 
-    <a-asset-item id="dawningFont" src="font/dawningOfANewDayRegular.typeface.json"></a-asset-item>
-    <a-asset-item id="exoFont" src="font/exo2Black.typeface.json"></a-asset-item>
-    <a-asset-item id="exoItalicFont" src="font/Fexo2BlackItalic.typeface.json"></a-asset-item>    
- 
+    <a-assets>
+        <img id="sky" src="tex/space.jpg">
+        <img id="grid" src="tex/gridPattern.png" >
+        <img id="pink" src="tex/pink.jpg"> 
+        <img id="chrome" src="tex/chrome.jpg"> 
+        <a-asset-item id="dawningFont" src="font/dawningOfANewDayRegular.typeface.json"></a-asset-item>
+        <a-asset-item id="exoFont" src="font/exo2Black.typeface.json"></a-asset-item>
+        <a-asset-item id="exoItalicFont" src="font/Fexo2BlackItalic.typeface.json"></a-asset-item>     
     </a-assets>
-
         
     <a-entity    id ="bot"
                 scale="1.5 1.5 1.5"
@@ -67,56 +65,56 @@ AFRAME.registerComponent('animation-control', {
                 gltf-model="url(3dbot/scene.gltf)"
        
       ></a-entity> 
-  <a-camera position="0 2 4">
-   <a-entity 
-            raycaster="objects: .clickable"
-            cursor="fuse: true; fuseTimeout: 500"
-            position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: green; shader: flat">
-  <a-animation begin="click" easing="ease-in" attribute="scale"
-               fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
-  <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-               fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
-</a-entity>
-      
-  </a-camera>
-         
-    
         
-   <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+      <a-camera position="0 2 4">
+
+      <a-entity 
+                raycaster="objects: .clickable"
+                cursor="fuse: true; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: green; shader: flat">
+          <a-animation begin="click" easing="ease-in" attribute="scale"
+                       fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+          <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                       fill="forwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>
+      </a-entity>      
+      </a-camera>       
+          
+      <a-sky src="#sky" rotation="0 -90 0"></a-sky>
         
         
-    <a-entity position="-4 1 -6" rotation="5 0 0">
-        <a-entity
-          rotation="0 0 0"
-          position="-2 8 -1"
-          text-geometry="value: VR Spere Bot; font: #dawningFont; bevelEnabled: true; bevelSize: 0.05; bevelThickness: 0.05; curveSegments: 12; size: 1.2; height: 0;"
-          material="color:lavenderblush; metalness:1; roughness: 0; sphericalEnvMap: #pink;"
-        ></a-entity>
-        
-       <a-entity id= "attack" class="clickable" animation-control="clip: 04_Sphere_bot_Attack; crossFadeDuration: .3" position="0.091 0.550 4.087" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Attack; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
-       
-        <a-entity id= "roll" class="clickable" animation-control="clip: 02_Sphere_bot_Run_Cycle; crossFadeDuration: .3" position="1.675 2.74 3.986" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Run; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
-     
-        <a-entity id="jumping" class="clickable" animation-control="clip: 07_Sphere_bot_Jump; crossFadeDuration: .3" position="1 1.5 4" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: JUMP; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
-       </a-entity> 
+        <a-entity position="-4 1 -6" rotation="5 0 0">
+            <a-entity
+              rotation="0 0 0"
+              position="-2 8 -1"
+              text-geometry="value: VR Spere Bot; font: #dawningFont; bevelEnabled: true; bevelSize: 0.05; bevelThickness: 0.05; curveSegments: 12; size: 1.2; height: 0;"
+              material="color:lavenderblush; metalness:1; roughness: 0; sphericalEnvMap: #pink;"
+            ></a-entity>
+
+           <a-entity id= "attack" class="clickable" animation-control="clip: 04_Sphere_bot_Attack; crossFadeDuration: .3" position="0.091 0.550 4.087" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Attack; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
+
+            <a-entity id= "roll" class="clickable" animation-control="clip: 02_Sphere_bot_Run_Cycle; crossFadeDuration: .3" position="1.675 2.74 3.986" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Run; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
+
+            <a-entity id="jumping" class="clickable" animation-control="clip: 07_Sphere_bot_Jump; crossFadeDuration: .3" position="1 1.5 4" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: JUMP; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
+
+            <a-entity id="goleft" class="clickable" movebuttonl= "leftbutton" position="0.809 -1.115 3.116" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Left; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
+
+            <a-entity id="goright" class="clickable" movebuttonr= "righttbutton" position="5.658 -1.323 3.12" rotation="0 0 0" scale="0.5 .6 .3" text-geometry="value: Right; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity> 
+
+        </a-entity> 
         
         <a-entity
         geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
         material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
         
-     <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
-      <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
-      <a-entity light="color: #8498b2; intensity: 0.5" position="-5 5 15"></a-entity>
-      <a-entity light="color: white; type: ambient;"></a-entity>
-
+         <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+          <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+          <a-entity light="color: #8498b2; intensity: 0.5" position="-5 5 15"></a-entity>
+          <a-entity light="color: white; type: ambient;"></a-entity>
     
       </a-scene>
-      
-      
-      
-        
+            
       
       <script>   
         
@@ -125,3 +123,5 @@ AFRAME.registerComponent('animation-control', {
       </script>
     </body>
 </html>
+
+<script src="js/move.js"></script>
